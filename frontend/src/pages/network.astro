@@ -1,0 +1,9 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocumentNetwork from "../components/network/DocumentNetwork.tsx";
+---
+<BaseLayout title="Document network">
+<h1 class="serif-h mb-4 text-2xl">Document network</h1>
+<p class="mb-2 text-sm opacity-70">Edge thickness = contradiction count. Click a node to filter the table.</p>
+<DocumentNetwork client:load />
+</BaseLayout>

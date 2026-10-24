@@ -1,0 +1,8 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContradictionTable from "../components/contradictions/ContradictionTable.tsx";
+---
+<BaseLayout title="Contradictions">
+<h1 class="serif-h mb-4 text-2xl">Contradictions</h1>
+<ContradictionTable client:visible />
+</BaseLayout>

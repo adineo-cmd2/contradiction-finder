@@ -1,0 +1,22 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/corpus', label: 'Corpus' },
+  { href: '/contradictions', label: 'Contradictions' },
+  { href: '/network', label: 'Network' },
+  { href: '/document', label: 'Document' },
+  { href: '/settings', label: 'Settings' },
+];
+---
+<nav class="border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+    <a href="/" class="serif-h text-lg font-bold text-slateink">ContraLens</a>
+    <ul class="flex gap-4">
+      {links.map((l) => (
+        <li>
+          <a href={l.href} class="text-sm text-slateink hover:text-amber">{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,8 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import DocumentView from "../components/document/DocumentView.tsx";
+---
+<BaseLayout title="Document view">
+<h1 class="serif-h mb-4 text-2xl">Document view</h1>
+<DocumentView client:load />
+</BaseLayout>

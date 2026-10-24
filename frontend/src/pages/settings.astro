@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Settings">
+<h1 class="serif-h mb-4 text-2xl">Settings</h1>
+<div id="list" class="space-y-2"></div>
+<script>
+  const BASE = "http://localhost:8003";
+  async function load() {
+    const r = await fetch(`${BASE}/api/corpus`);
+    const items = await r.json();
+    const el = document.getElementById("list")!;
+    el.innerHTML = "";
+    for (const c of items) {
+      const row = document.createElement("div");
+      row.className = "flex items-center justify-between border border-slate-200 px-3 py-2";
+      const label = document.createElement("span");
+      label.textContent = `${c.name} (${c.docs} docs)`;
+      const b = document.createElement("button");
+      b.className = "text-red-700 underline";
+      b.textContent = "Delete";
+      b.onclick = async () => {
+        if (!confirm(`Delete corpus ${c.name}?`)) return;
+        await fetch(`${BASE}/api/corpus/${c.id}`, { method: "DELETE" });
+        load();
+      };
+      row.appendChild(label);
+      row.appendChild(b);
+      el.appendChild(row);
+    }
+  }
+  load();
+</script>
+</BaseLayout>

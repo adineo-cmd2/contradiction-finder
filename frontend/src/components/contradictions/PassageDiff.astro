@@ -1,0 +1,11 @@
+---
+interface Props {
+  left?: string;
+  right?: string;
+}
+const { left = '', right = '' } = Astro.props;
+---
+<div class="grid gap-2 md:grid-cols-2">
+  <div class="border border-slate-200 p-2"><mark class="bg-amberbg">{left}</mark></div>
+  <div class="border border-slate-200 p-2"><mark class="bg-amberbg">{right}</mark></div>
+</div>

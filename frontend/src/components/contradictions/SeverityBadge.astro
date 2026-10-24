@@ -1,0 +1,13 @@
+---
+interface Props {
+  severity?: string;
+}
+const { severity = 'minor' } = Astro.props;
+const color =
+  severity === 'fundamental'
+    ? 'bg-red-100 text-red-800'
+    : severity === 'factual'
+      ? 'bg-amberbg text-amber'
+      : 'bg-slate-100 text-slateink';
+---
+<span class={`mono-n px-1 text-xs ${color}`}>{severity}</span>
