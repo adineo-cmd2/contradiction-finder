@@ -4,11 +4,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: '#ffffff',
-        slateink: '#1e293b',
-        amber: '#b45309',
-        amberbg: '#fef3c7',
-      },
+        "paper": "#ffffff",
+        "slateink": "#1e293b",
+        "amber": "#b45309",
+        "amberbg": "#fef3c7"
+},
+      fontFamily: {
+        "display": [
+                "'Newsreader'",
+                "Georgia",
+                "serif"
+        ],
+        "body": [
+                "'Inter'",
+                "system-ui",
+                "sans-serif"
+        ],
+        "mono": [
+                "'JetBrains Mono'",
+                "ui-monospace",
+                "monospace"
+        ]
+},
     },
   },
   plugins: [],

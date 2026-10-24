@@ -1,13 +1,120 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 ---
-<BaseLayout title="Find where your sources disagree.">
-<h1 class="serif-h text-4xl">Find where your sources disagree.</h1>
-<p class="mt-4 max-w-2xl">Upload a set of papers. ContraLens surfaces the places where your literature contradicts itself — across documents and within them — each with a confidence score for your review.</p>
-<div class="mt-6 grid gap-3 md:grid-cols-3">
-<div class="border border-slate-200 p-4"><p class="font-bold">1. Build a corpus</p><p class="text-sm opacity-70">Name it, upload PDF/DOCX/TXT.</p></div>
-<div class="border border-slate-200 p-4"><p class="font-bold">2. Run analysis</p><p class="text-sm opacity-70">Similar pairs checked by NLI.</p></div>
-<div class="border border-slate-200 p-4"><p class="font-bold">3. Review conflicts</p><p class="text-sm opacity-70">Table, network, inline flags.</p></div>
+<BaseLayout title="Find where your sources disagree" description="Upload a set of papers. ContraLens surfaces the places where your literature contradicts itself — across documents and within them — each with a confidence score.">
+<section class="hero">
+  <span class="hero-badge">NLI cross-checks · confidence scored</span>
+  <h1 class="display-1">Find where your sources<br/><span class="grad-text">disagree.</span></h1>
+  <p class="lead">Upload a set of papers. ContraLens surfaces the places where your literature contradicts itself — across documents and within them — each with a confidence score for your review.</p>
+  <div class="hero-ctas">
+<a href={`${base}/corpus`} class="btn btn-accent btn-lg">Create a corpus</a>
+<a href={`${base}/network`} class="btn btn-ghost btn-lg">Browse the network view</a>
+  </div>
+  <div class="hero-meta">
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>PDF · DOCX · TXT</span>
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg>Document network map</span>
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Corpora stay private</span>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-3">
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Build a corpus</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Name it, upload PDF/DOCX/TXT — your reading list becomes a searchable corpus.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Pairwise analysis</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Similar passages are paired up and checked for contradiction with natural-language inference.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18M16 3v18M3 8h5M3 16h5M16 12h5M12 5l4 3-4 3"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Two kinds of conflict</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Across documents and within them — both surface in one review table.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Document network</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">See which papers clash most, as an interactive network of documents and contradictions.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Inline passage flags</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Open a document and contradictions are flagged right where they occur.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Confidence, always</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Detection is imperfect — every flag carries its score for your judgment.</p>
+</article>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head">
+    <p class="eyebrow">Showcase</p>
+    <h2 class="section-title">How a contradiction reads</h2>
+    <p class="lead">Source quotes side by side, with the confidence the model assigns.</p>
+  </div>
+
+<div class="grid gap-3 sm:grid-cols-2" style="max-width: 46rem; margin: 0 auto">
+  <div class="card p-4">
+    <p class="eyebrow">Source A · 2021</p>
+    <p class="serif-h mt-2 text-[0.95rem] leading-relaxed italic">“Remote work measurably reduced team productivity in the first year.”</p>
+  </div>
+  <div class="card p-4" style="border-color: var(--accent)">
+    <p class="eyebrow">Source B · 2022</p>
+    <p class="serif-h mt-2 text-[0.95rem] leading-relaxed italic">“Productivity rose 3–5% for fully remote teams in the same period.”</p>
+  </div>
 </div>
-<a href="/corpus" class="mt-6 inline-block underline">Create a corpus</a>
+<div class="mt-3 flex justify-center">
+  <span class="chip chip-accent">contradiction detected · confidence 0.78 · across documents</span>
+</div>
+
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">How it works</p>
+    <h2 class="section-title">Three steps, no fluff</h2>
+  </div>
+  <div class="grid-3">
+<div class="step reveal">
+  <div class="step-num">01</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Build a corpus</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Name it, upload PDF/DOCX/TXT.</p>
+</div>
+<div class="step reveal">
+  <div class="step-num">02</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Run analysis</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Similar pairs are checked by NLI for contradictions.</p>
+</div>
+<div class="step reveal">
+  <div class="step-num">03</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Review conflicts</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Table, network, and inline flags — all confidence-scored.</p>
+</div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="note-band">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <p>NLI detection is imperfect. Every flag shows a confidence score for your review — corpora are private to your account.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta-band reveal">
+    <h2 class="section-title">Your literature has seams.</h2>
+    <p class="lead" style="margin: 0.8rem auto 1.8rem">Upload the papers and find where they disagree.</p>
+    <a href={`${base}/corpus`} class="btn btn-accent btn-lg">Create a corpus</a>
+  </div>
+</section>
+
 </BaseLayout>

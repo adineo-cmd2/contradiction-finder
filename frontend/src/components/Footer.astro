@@ -1,7 +1,43 @@
 ---
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
+const year = new Date().getFullYear();
+const links: { href: string; label: string }[] = [{"href": "/", "label": "Home"}, {"href": "/corpus", "label": "Corpus"}, {"href": "/contradictions", "label": "Contradictions"}, {"href": "/network", "label": "Network"}, {"href": "/document", "label": "Document"}, {"href": "/settings", "label": "Settings"}];
 ---
-<footer class="mt-12 border-t border-slate-200 bg-white">
-  <div class="mx-auto max-w-5xl px-4 py-4 text-sm text-slateink opacity-80">
-    <p>ContraLens — NLI detection is imperfect; every flag shows a confidence score for your review. Corpora are private to your account.</p>
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href={base || '/'} class="brand" style="margin-bottom: 0.9rem">
+        <span class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18M16 3v18M3 8h5M3 16h5M16 12h5M12 5l4 3-4 3"/></svg></span>
+        <span>ContraLens</span>
+      </a>
+      <p class="text-sm leading-relaxed" style="color: var(--ink-soft); max-width: 34rem">
+        ContraLens — NLI detection is imperfect; every flag shows a confidence score for your review. Corpora are private to your account.
+      </p>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul class="footer-links">
+        {links.map((l) => (
+          <li>
+            <a href={l.href === '/' ? base || '/' : `${base}${l.href}`}>{l.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div>
+      <h4>Project</h4>
+      <ul class="footer-links">
+        <li><a href="https://github.com/adineo-cmd2/contradiction-finder" target="_blank" rel="noreferrer">Source on GitHub ↗</a></li>
+        <li><a href="https://adineo-cmd2.github.io/contradiction-finder/" target="_blank" rel="noreferrer">Live site ↗</a></li>
+        <li><span style="font-size: 0.88rem">Local backend · <span class="mono">localhost:8003</span></span></li>
+        <li><span style="font-size: 0.88rem">FastAPI + Astro + React</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span>© {year} ContraLens · Aditya Yadav</span>
+      <span>Deployed on GitHub Pages</span>
+    </div>
   </div>
 </footer>

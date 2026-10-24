@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiGet } from '../../lib/apiClient';
+const BASE = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 
 interface Node {
   id: number;
@@ -65,7 +66,7 @@ export default function DocumentNetwork() {
           {nodes.map((n) => {
             const p = pos.get(n.id)!;
             return (
-              <g key={n.id} className="cursor-pointer" onClick={() => { window.location.href = `/contradictions?corpus=${corpus}&doc=${n.id}`; }}>
+              <g key={n.id} className="cursor-pointer" onClick={() => { window.location.href = `${BASE}/contradictions?corpus=${corpus}&doc=${n.id}`; }}>
                 <circle cx={p.x} cy={p.y} r={10 + Math.min(n.count, 8)} fill="#1e293b" />
                 <text x={p.x} y={p.y - 16} textAnchor="middle" fontSize={11} fill="#1e293b">{n.label} ({n.count})</text>
               </g>
