@@ -34,13 +34,14 @@ export default function DocumentView() {
   }, []);
 
   function render() {
-    let out = text;
-    for (const f of flags) {
-      out = out.split(f.snippet).join(`\u0000${f.snippet}\u0001`);
-    }
-    return out.split('\u0000').map((part, i) =>
-      part.includes('\u0001') ? (
-        <mark key={i} className="bg-amberbg">{part.replace('\u0001', '')}</mark>
+    const snippets = flags.map((f) => f.snippet).filter(Boolean);
+    if (!snippets.length) return text;
+    const escaped = snippets.map((s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const pattern = new RegExp(`(${escaped.join('|')})`, 'g');
+    const marked = new Set(snippets);
+    return text.split(pattern).map((part, i) =>
+      marked.has(part) ? (
+        <mark key={i} className="bg-amberbg">{part}</mark>
       ) : (
         <span key={i}>{part}</span>
       ),
@@ -48,13 +49,20 @@ export default function DocumentView() {
   }
 
   return (
-    <div>
-      <div className="flex gap-2">
-        <input className="border border-slate-300 px-2 py-1" value={id} onChange={(e) => setId(e.target.value)} placeholder="Document id" />
-        <button className="border border-slate-300 px-3 py-1" onClick={load}>Open</button>
+    <div className="case-form">
+      <div className="case-panel" style={{ marginTop: 0 }}>
+        <div className="flex flex-wrap gap-2">
+          <input className="input flex-1" value={id} onChange={(e) => setId(e.target.value)} placeholder="Document id" />
+          <button className="btn btn-accent" onClick={load}>Open</button>
+        </div>
       </div>
-      <h2 className="serif-h mt-4 text-xl">{name}</h2>
-      <p className="mt-2 whitespace-pre-wrap text-sm leading-6">{render()}</p>
+      {name && (
+        <article className="document-sheet">
+          <p className="label-x">Source file</p>
+          <h2 className="document-title">{name}</h2>
+          <p className="document-text">{render()}</p>
+        </article>
+      )}
     </div>
   );
 }

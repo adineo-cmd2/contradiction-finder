@@ -1,120 +1,258 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-
 const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
+const caseNo = 'CL-114';
+const opened = '28 Oct 2026';
+
+const index = [
+  {
+    no: '01',
+    href: '/corpus',
+    title: 'Corpus',
+    sub: 'Open a case and file the sources.',
+    meta: 'PDF · DOCX · TXT',
+    status: 'Intake',
+    statusClass: '',
+  },
+  {
+    no: '02',
+    href: '/document',
+    title: 'Documents',
+    sub: 'Read a single source with its claims flagged in place.',
+    meta: 'Inline flags',
+    status: 'Reading',
+    statusClass: '',
+  },
+  {
+    no: '03',
+    href: '/contradictions',
+    title: 'Contradictions',
+    sub: 'The ranked pairs, each with both claims and a score.',
+    meta: 'Confidence scored',
+    status: 'Review',
+    statusClass: 'index-status--review',
+  },
+  {
+    no: '04',
+    href: '/network',
+    title: 'Network',
+    sub: 'See which documents clash, and how often.',
+    meta: 'Edge count',
+    status: 'Mapped',
+    statusClass: '',
+  },
+];
 ---
 <BaseLayout title="Find where your sources disagree" description="Upload a set of papers. ContraLens surfaces the places where your literature contradicts itself — across documents and within them — each with a confidence score.">
-<section class="hero">
-  <span class="hero-badge">NLI cross-checks · confidence scored</span>
-  <h1 class="display-1">Find where your sources<br/><span class="grad-text">disagree.</span></h1>
-  <p class="lead">Upload a set of papers. ContraLens surfaces the places where your literature contradicts itself — across documents and within them — each with a confidence score for your review.</p>
-  <div class="hero-ctas">
-<a href={`${base}/corpus`} class="btn btn-accent btn-lg">Create a corpus</a>
-<a href={`${base}/network`} class="btn btn-ghost btn-lg">Browse the network view</a>
-  </div>
-  <div class="hero-meta">
-<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>PDF · DOCX · TXT</span>
-<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg>Document network map</span>
-<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Corpora stay private</span>
-  </div>
-</section>
+  <section aria-labelledby="case-title">
+    <div class="case-strip">
+      <span class="case-no">Case No. {caseNo}</span>
+      <span>Opened {opened}</span>
+      <span>Literature desk</span>
+      <span class="case-status">Status · intake</span>
+    </div>
 
-<section class="section">
-  <div class="grid-3">
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Build a corpus</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Name it, upload PDF/DOCX/TXT — your reading list becomes a searchable corpus.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Pairwise analysis</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Similar passages are paired up and checked for contradiction with natural-language inference.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v18M16 3v18M3 8h5M3 16h5M16 12h5M12 5l4 3-4 3"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Two kinds of conflict</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Across documents and within them — both surface in one review table.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Document network</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">See which papers clash most, as an interactive network of documents and contradictions.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Inline passage flags</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Open a document and contradictions are flagged right where they occur.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Confidence, always</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Detection is imperfect — every flag carries its score for your judgment.</p>
-</article>
-  </div>
-</section>
+    <div class="hero-case">
+      <div class="hero-case-main">
+        <p class="eyebrow">Contradiction review</p>
+        <h1 id="case-title" class="display-1">
+          Sources disagree.<br />
+          <span class="grad-text">That’s the lead.</span>
+        </h1>
+        <p class="lead">
+          ContraLens extracts claims across a corpus of papers, pairs the passages that speak to the
+          same question, and ranks the places where the sources contradict each other. Every flag
+          keeps its evidence and a confidence score.
+        </p>
+        <div class="hero-ctas">
+          <a href={`${base}/corpus`} class="btn btn-accent btn-lg">Open a case</a>
+          <a href={`${base}/contradictions`} class="btn btn-ghost btn-lg">Read the contradictions</a>
+        </div>
+        <div class="hero-stamp-line">
+          <span class="stamp">Contradiction</span>
+          <p class="stamp-note">
+            Pair 07 · confidence <strong>0.78</strong><br />
+            Cross-document · two sources
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15zM4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+            PDF · DOCX · TXT
+          </span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg>
+            Document network
+          </span>
+          <span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Corpora stay private
+          </span>
+        </div>
+      </div>
 
-<section class="section reveal">
-  <div class="section-head">
-    <p class="eyebrow">Showcase</p>
-    <h2 class="section-title">How a contradiction reads</h2>
-    <p class="lead">Source quotes side by side, with the confidence the model assigns.</p>
-  </div>
+      <aside class="evidence" aria-label="Sample evidence: two exhibits with conflicting claims">
+        <div class="evidence-head">
+          <span>Exhibits A–B</span>
+          <span class="mono">{caseNo} / 07</span>
+        </div>
+        <div class="evidence-body">
+          <figure class="exhibit">
+            <div class="exhibit-head">
+              <figcaption class="exhibit-label"><span class="exhibit-letter">A</span> Exhibit A</figcaption>
+              <span class="exhibit-source">Doc 014 · 2021 · p. 12</span>
+            </div>
+            <blockquote class="exhibit-quote">
+              <span class="exhibit-line">“Remote work measurably</span>
+              <span class="claim-line"><mark>reduced team productivity</mark></span>
+              <span class="exhibit-line">in the first year.”</span>
+            </blockquote>
+          </figure>
 
-<div class="grid gap-3 sm:grid-cols-2" style="max-width: 46rem; margin: 0 auto">
-  <div class="card p-4">
-    <p class="eyebrow">Source A · 2021</p>
-    <p class="serif-h mt-2 text-[0.95rem] leading-relaxed italic">“Remote work measurably reduced team productivity in the first year.”</p>
-  </div>
-  <div class="card p-4" style="border-color: var(--accent)">
-    <p class="eyebrow">Source B · 2022</p>
-    <p class="serif-h mt-2 text-[0.95rem] leading-relaxed italic">“Productivity rose 3–5% for fully remote teams in the same period.”</p>
-  </div>
-</div>
-<div class="mt-3 flex justify-center">
-  <span class="chip chip-accent">contradiction detected · confidence 0.78 · across documents</span>
-</div>
+          <figure class="exhibit">
+            <div class="exhibit-head">
+              <figcaption class="exhibit-label"><span class="exhibit-letter">B</span> Exhibit B</figcaption>
+              <span class="exhibit-source">Doc 031 · 2022 · p. 4</span>
+            </div>
+            <blockquote class="exhibit-quote">
+              <span class="exhibit-line">“Productivity</span>
+              <span class="claim-line"><mark>rose 3–5%</mark></span>
+              <span class="exhibit-line">for fully remote teams in the same period.”</span>
+            </blockquote>
+          </figure>
+        </div>
+        <div class="evidence-foot">
+          <span class="chip chip-accent">Contradiction</span>
+          <span class="mono">Confidence 0.78 · across documents</span>
+        </div>
+      </aside>
+    </div>
 
-</section>
+    <div class="ledger" aria-label="What the file records">
+      <div class="ledger-item">
+        <span class="stat-number">03</span>
+        <span class="label-x">File formats</span>
+      </div>
+      <div class="ledger-item">
+        <span class="stat-number">02</span>
+        <span class="label-x">Conflict types</span>
+      </div>
+      <div class="ledger-item">
+        <span class="stat-number">01</span>
+        <span class="label-x">Confidence score</span>
+      </div>
+      <div class="ledger-item">
+        <span class="stat-number">00</span>
+        <span class="label-x">Black boxes</span>
+      </div>
+    </div>
+  </section>
 
-<section class="section">
-  <div class="section-head">
-    <p class="eyebrow">How it works</p>
-    <h2 class="section-title">Three steps, no fluff</h2>
-  </div>
-  <div class="grid-3">
-<div class="step reveal">
-  <div class="step-num">01</div>
-  <h3 class="mt-2 text-[1rem] font-semibold">Build a corpus</h3>
-  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Name it, upload PDF/DOCX/TXT.</p>
-</div>
-<div class="step reveal">
-  <div class="step-num">02</div>
-  <h3 class="mt-2 text-[1rem] font-semibold">Run analysis</h3>
-  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Similar pairs are checked by NLI for contradictions.</p>
-</div>
-<div class="step reveal">
-  <div class="step-num">03</div>
-  <h3 class="mt-2 text-[1rem] font-semibold">Review conflicts</h3>
-  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Table, network, and inline flags — all confidence-scored.</p>
-</div>
-  </div>
-</section>
+  <section class="section" id="dossier-index" aria-labelledby="index-title">
+    <div class="index-head">
+      <div>
+        <p class="eyebrow">Dossier index</p>
+        <h2 id="index-title" class="section-title">Four files, one reading list.</h2>
+      </div>
+      <p class="index-note">All entries open · {caseNo}</p>
+    </div>
+    <ol class="index-list">
+      {index.map((file) => (
+        <li>
+          <a class="index-row" href={`${base}${file.href}`}>
+            <span class="index-no">{file.no}</span>
+            <span>
+              <span class="index-title">{file.title}</span>
+              <span class="index-sub">{file.sub}</span>
+            </span>
+            <span class="index-meta">{file.meta}</span>
+            <span class={`index-status ${file.statusClass}`}>{file.status}</span>
+            <span class="index-arrow" aria-hidden="true">↗</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </section>
 
-<section class="section reveal">
-  <div class="note-band">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    <p>NLI detection is imperfect. Every flag shows a confidence score for your review — corpora are private to your account.</p>
-  </div>
-</section>
+  <section class="section method" aria-labelledby="method-title">
+    <div class="method-side">
+      <p class="eyebrow">Method / on the record</p>
+      <h2 id="method-title" class="section-title">How a lead becomes a flagged pair.</h2>
+      <p class="method-note">
+        No hidden verdicts. Each entry in the file keeps its two documents, the two claims, the
+        explanation, and the model’s confidence.
+      </p>
+      <div class="redact-sheet" aria-hidden="true">
+        <span class="label-x">Notes / not evidence</span>
+        <span class="redact" style="width: 92%"></span>
+        <span class="redact" style="width: 76%"></span>
+        <span class="redact" style="width: 61%"></span>
+        <span class="redact-caption">Redaction is for gossip, not claims.</span>
+      </div>
+    </div>
 
-<section class="section">
-  <div class="cta-band reveal">
-    <h2 class="section-title">Your literature has seams.</h2>
-    <p class="lead" style="margin: 0.8rem auto 1.8rem">Upload the papers and find where they disagree.</p>
-    <a href={`${base}/corpus`} class="btn btn-accent btn-lg">Create a corpus</a>
-  </div>
-</section>
+    <ol class="memo">
+      <li class="memo-row">
+        <span class="memo-no">01</span>
+        <div>
+          <h3>Extract the claims</h3>
+          <p>Each paper is split into passages. Claims are pulled out and kept with their source and page.</p>
+        </div>
+        <span class="memo-tag">Documents</span>
+      </li>
+      <li class="memo-row">
+        <span class="memo-no">02</span>
+        <div>
+          <h3>Pair the passages</h3>
+          <p>Passages that address the same question are paired. Whatever does not meet stays out of the file.</p>
+        </div>
+        <span class="memo-tag">Pairs</span>
+      </li>
+      <li class="memo-row">
+        <span class="memo-no">03</span>
+        <div>
+          <h3>Test for contradiction</h3>
+          <p>A natural-language inference model asks whether the two claims can both stand. Similar wording alone does not count.</p>
+        </div>
+        <span class="memo-tag">NLI</span>
+      </li>
+      <li class="memo-row">
+        <span class="memo-no">04</span>
+        <div>
+          <h3>File the flag</h3>
+          <p>Contradictions are ranked by confidence and severity, with both sides quoted for your review.</p>
+        </div>
+        <span class="memo-tag">Review</span>
+      </li>
+    </ol>
+  </section>
 
+  <section class="section" aria-label="A note on confidence">
+    <div class="note-band">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg>
+      <p>
+        <strong class="mono" style="font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent)">Read before filing ·</strong>
+        NLI detection is imperfect. Every flag shows a confidence score for your review, and corpora
+        are private to your account. Treat the output as a lead, not a verdict.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="cta-title">
+    <div class="cta-band">
+      <div>
+        <p class="eyebrow">Referral / new case</p>
+        <h2 id="cta-title" class="section-title">Bring the reading list. We’ll find the seams.</h2>
+        <p class="lead">Open a case, add the papers, and run the cross-check. The first contradiction is usually in the method section.</p>
+      </div>
+      <div>
+        <div class="cta-actions">
+          <a href={`${base}/corpus`} class="btn btn-accent btn-lg">Open a case</a>
+          <a href={`${base}/network`} class="btn btn-ghost btn-lg">See the network</a>
+        </div>
+        <p class="cta-note">PDF · DOCX · TXT / Private corpora / Confidence always shown</p>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

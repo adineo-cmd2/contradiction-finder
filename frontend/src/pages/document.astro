@@ -3,6 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DocumentView from "../components/document/DocumentView.tsx";
 ---
 <BaseLayout title="Document view">
-<h1 class="page-title">Document view</h1>
-<DocumentView client:load />
+  <header class="file-head">
+    <div>
+      <p class="eyebrow">File 02 / reading</p>
+      <h1 class="page-title">Document view</h1>
+      <p class="page-intro">Open a single document and read it with its contradictions flagged in place. Enter a document id to pull the file.</p>
+    </div>
+    <p class="file-meta">Single source<br />Flags inline</p>
+  </header>
+  <DocumentView client:load />
 </BaseLayout>

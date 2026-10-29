@@ -3,7 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DocumentNetwork from "../components/network/DocumentNetwork.tsx";
 ---
 <BaseLayout title="Document network">
-<h1 class="page-title">Document network</h1>
-<p class="mb-2 text-sm opacity-70">Edge thickness = contradiction count. Click a node to filter the table.</p>
-<DocumentNetwork client:load />
+  <header class="file-head">
+    <div>
+      <p class="eyebrow">File 04 / map</p>
+      <h1 class="page-title">Document network</h1>
+      <p class="page-intro">A map of the corpus: each node is a document, each edge a contradiction. Edge thickness is the count. Click a node to filter the review table.</p>
+    </div>
+    <p class="file-meta">Corpus map<br />Click to filter</p>
+  </header>
+  <DocumentNetwork client:load />
 </BaseLayout>

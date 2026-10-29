@@ -3,6 +3,13 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ContradictionTable from "../components/contradictions/ContradictionTable.tsx";
 ---
 <BaseLayout title="Contradictions">
-<h1 class="page-title">Contradictions</h1>
-<ContradictionTable client:visible />
+  <header class="file-head">
+    <div>
+      <p class="eyebrow">File 03 / review</p>
+      <h1 class="page-title">Contradictions</h1>
+      <p class="page-intro">Ranked pairs from one corpus. Each row carries the two documents, a severity, a confidence score, and the model’s summary. Open a row to read both claims in full.</p>
+    </div>
+    <p class="file-meta">Confidence scored<br />NLI · review each</p>
+  </header>
+  <ContradictionTable client:visible />
 </BaseLayout>

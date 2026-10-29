@@ -28,15 +28,15 @@ export default function AnalysisStatus() {
   }
 
   return (
-    <div className="mt-6 border border-slate-200 p-4">
-      <div className="flex gap-2">
+    <div className="case-panel">
+      <div className="flex flex-wrap gap-2">
         <input
-          className="border border-slate-300 px-2 py-1 text-slateink"
+          className="input flex-1"
           value={corpusId}
           onChange={(e) => setCorpusId(e.target.value)}
           placeholder="Corpus id"
         />
-        <button className="bg-amber px-3 py-1 text-white" onClick={analyse}>Analyse</button>
+        <button className="btn btn-accent" onClick={analyse}>Analyse</button>
       </div>
       {status === 'running' && <p className="mt-2 text-sm opacity-70">Running: similar pairs → NLI → explain…</p>}
       {status === 'complete' && <p className="mt-2 text-sm">Complete: {found} contradictions found.</p>}

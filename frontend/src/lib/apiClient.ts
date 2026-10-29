@@ -30,7 +30,7 @@ async function handle(res: Response): Promise<any> {
 }
 
 export async function apiPost(path: string, body: unknown): Promise<any> {
-  const res = await request(`${BASE}${path}`, {
+  const res = await request(path, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -39,14 +39,14 @@ export async function apiPost(path: string, body: unknown): Promise<any> {
 }
 
 export async function apiGet(path: string): Promise<any> {
-  const res = await request(`${BASE}${path}`);
+  const res = await request(path);
   return handle(res);
 }
 
 export async function apiUpload(path: string, file: File): Promise<any> {
   const form = new FormData();
   form.append('file', file);
-  const res = await request(`${BASE}${path}`, {
+  const res = await request(path, {
     method: 'POST',
     body: form,
   });
@@ -54,7 +54,7 @@ export async function apiUpload(path: string, file: File): Promise<any> {
 }
 
 export async function apiDelete(path: string): Promise<any> {
-  const res = await request(`${BASE}${path}`, {
+  const res = await request(path, {
     method: 'DELETE',
   });
   return handle(res);

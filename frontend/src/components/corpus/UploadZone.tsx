@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { apiGet, apiPost, apiUpload } from '../../lib/apiClient';
 
 type FileStatus = 'uploading' | 'analysing' | 'done' | 'error';
@@ -25,6 +25,11 @@ export default function UploadZone() {
       setError(e instanceof Error ? e.message : 'Failed to load corpora.');
     }
   }
+
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   async function create() {
     setError('');
@@ -59,39 +64,49 @@ export default function UploadZone() {
   }
 
   return (
-    <div className="space-y-4" onMouseEnter={refresh}>
-      <div className="flex gap-2">
+    <div className="case-form" onMouseEnter={refresh}>
+      <div className="flex flex-col gap-2 sm:flex-row">
         <input
-          className="flex-1 border border-slate-300 px-2 py-1 text-slateink"
+          className="input flex-1"
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="New corpus name, e.g. Climate policy review"
         />
-        <button className="border border-slate-300 px-3 py-1" onClick={create}>Create</button>
-        <button className="underline" onClick={refresh}>Refresh</button>
+        <button className="btn btn-accent" onClick={create}>Open a case</button>
+        <button className="btn btn-ghost" onClick={refresh}>Refresh</button>
       </div>
-      {error && <p className="text-sm text-red-700">{error}</p>}
-      <ul className="divide-y divide-slate-200 border border-slate-200">
-        {corpora.map((c) => (
-          <li key={c.id} className="flex items-center justify-between px-3 py-2">
-            <button className="underline" onClick={() => setCorpusId(c.id)}>{c.name}</button>
-            <span className="text-sm opacity-70">
-              {c.docs} docs · {c.analysed ? 'analysed' : 'not analysed'}
-              {corpusId === c.id ? ' · selected' : ''}
-            </span>
-          </li>
-        ))}
-      </ul>
+      {error && <p className="form-error">{error}</p>}
+      <div>
+        <p className="label-x">Cases on file</p>
+        <ul>
+          {corpora.map((c) => (
+            <li key={c.id} className="flex items-center justify-between gap-3">
+              <button onClick={() => setCorpusId(c.id)}>{c.name}</button>
+              <span className="mono-n text-xs opacity-70">
+                {c.docs} docs · {c.analysed ? 'analysed' : 'not analysed'}
+                {corpusId === c.id ? ' · selected' : ''}
+              </span>
+            </li>
+          ))}
+          {corpora.length === 0 && (
+            <li className="mono-n text-xs opacity-70">No cases on file yet.</li>
+          )}
+        </ul>
+      </div>
       {corpusId != null && (
-        <label className="block border border-dashed border-slate-300 p-6 text-center">
-          Drop files here or click to upload (.txt .md .pdf .docx)
-          <input
-            type="file"
-            multiple
-            className="hidden"
-            onChange={(e) => upload(e.target.files)}
-          />
-        </label>
+        <div>
+          <p className="label-x">Add a document</p>
+          <label className="upload-drop">
+            <strong>Drop files here or click to upload</strong>
+            .txt .md .pdf .docx
+            <input
+              type="file"
+              multiple
+              className="hidden"
+              onChange={(e) => upload(e.target.files)}
+            />
+          </label>
+        </div>
       )}
       <ul className="space-y-1 text-sm">
         {Object.entries(states).map(([k, v]) => (

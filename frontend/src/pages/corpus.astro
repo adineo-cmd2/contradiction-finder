@@ -4,7 +4,36 @@ import UploadZone from "../components/corpus/UploadZone.tsx";
 import AnalysisStatus from "../components/corpus/AnalysisStatus.tsx";
 ---
 <BaseLayout title="Corpus manager">
-<h1 class="page-title">Corpus manager</h1>
-<UploadZone client:load />
-<AnalysisStatus client:load />
+  <header class="file-head">
+    <div>
+      <p class="eyebrow">File 01 / intake</p>
+      <h1 class="page-title">Corpus manager</h1>
+      <p class="page-intro">Open a case, then add the papers. PDF, DOCX, and TXT are accepted; each file is kept with the corpus it belongs to.</p>
+    </div>
+    <p class="file-meta">Case desk<br />CL-114 / records</p>
+  </header>
+
+  <section class="form-sheet" aria-labelledby="open-case-title">
+    <div class="form-sheet-head">
+      <div>
+        <p class="eyebrow">Intake</p>
+        <h2 id="open-case-title">Open a case</h2>
+      </div>
+      <span class="mono">Step 01 / name &amp; file</span>
+    </div>
+    <p class="form-note">Name the corpus, create the case, then select it below to add documents. Existing cases are listed in the file.</p>
+    <UploadZone client:load />
+  </section>
+
+  <section class="form-sheet" aria-labelledby="analyse-title">
+    <div class="form-sheet-head">
+      <div>
+        <p class="eyebrow">Cross-check</p>
+        <h2 id="analyse-title">Run the analysis</h2>
+      </div>
+      <span class="mono">Step 02 / pair &amp; test</span>
+    </div>
+    <p class="form-note">Enter the selected corpus id. The analysis pairs similar passages and checks each pair for contradiction.</p>
+    <AnalysisStatus client:load />
+  </section>
 </BaseLayout>

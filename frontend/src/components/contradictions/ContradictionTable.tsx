@@ -78,51 +78,53 @@ export default function ContradictionTable() {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2">
-        <input className="border border-slate-300 px-2 py-1" value={corpus} onChange={(e) => setCorpus(e.target.value)} placeholder="Corpus id" />
-        <select className="border border-slate-300 px-2 py-1" value={severity} onChange={(e) => setSeverity(e.target.value)}>
+      <div className="filter-bar">
+        <input className="input" value={corpus} onChange={(e) => setCorpus(e.target.value)} placeholder="Corpus id" />
+        <select className="select" value={severity} onChange={(e) => setSeverity(e.target.value)}>
           {SEVS.map((s) => (
             <option key={s} value={s}>{s === '' ? 'All severities' : s}</option>
           ))}
         </select>
-        <input className="border border-slate-300 px-2 py-1" value={doc} onChange={(e) => setDoc(e.target.value)} placeholder="Doc id filter" />
-        <button className="border border-slate-300 px-3 py-1" onClick={load}>Apply</button>
+        <input className="input" value={doc} onChange={(e) => setDoc(e.target.value)} placeholder="Doc id filter" />
+        <button className="btn btn-accent" onClick={load}>Apply</button>
       </div>
-      {error && <p className="mt-2 text-sm text-red-700">{error}</p>}
-      <p className="mt-2 text-sm opacity-70">{total} contradictions (NLI is imperfect — review each).</p>
-      <table className="mt-2 w-full border border-slate-200 text-sm">
-        <thead>
-          <tr className="bg-slate-50 text-left">
-            <th className="px-2 py-1">A vs B</th>
-            <th className="px-2 py-1">Severity</th>
-            <th className="px-2 py-1">Conf</th>
-            <th className="px-2 py-1">Summary</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <>
-              <tr key={r.id} className="cursor-pointer border-t border-slate-200 hover:bg-amberbg" onClick={() => expand(r.id)}>
-                <td className="px-2 py-1 mono-n">{r.doc_a} vs {r.doc_b}</td>
-                <td className="px-2 py-1">{r.severity}</td>
-                <td className="px-2 py-1">{r.confidence.toFixed(2)}</td>
-                <td className="px-2 py-1">{r.summary}</td>
-              </tr>
-              {open[r.id] && (
-                <tr key={`${r.id}-d`} className="border-t border-slate-200 bg-amberbg">
-                  <td colSpan={4} className="px-2 py-2">
-                    <div className="grid gap-2 md:grid-cols-2">
-                      <p><mark className="bg-amberbg">{open[r.id].claim_a}</mark></p>
-                      <p><mark className="bg-amberbg">{open[r.id].claim_b}</mark></p>
-                    </div>
-                    <p className="mt-2">{open[r.id].explanation}</p>
-                  </td>
+      {error && <p className="form-error mt-3">{error}</p>}
+      <p className="table-note">{total} contradictions (NLI is imperfect — review each).</p>
+      <div className="table-shell">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left">
+              <th>A vs B</th>
+              <th>Severity</th>
+              <th>Conf</th>
+              <th>Summary</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <>
+                <tr key={r.id} className="cursor-pointer" onClick={() => expand(r.id)}>
+                  <td className="mono-n">{r.doc_a} vs {r.doc_b}</td>
+                  <td><span className={r.severity === 'fundamental' ? 'chip chip-accent' : 'chip'}>{r.severity}</span></td>
+                  <td className="mono-n">{r.confidence.toFixed(2)}</td>
+                  <td>{r.summary}</td>
                 </tr>
-              )}
-            </>
-          ))}
-        </tbody>
-      </table>
+                {open[r.id] && (
+                  <tr key={`${r.id}-d`} className="bg-amberbg">
+                    <td colSpan={4}>
+                      <div className="grid gap-3 md:grid-cols-2">
+                        <p><mark>{open[r.id].claim_a}</mark></p>
+                        <p><mark>{open[r.id].claim_b}</mark></p>
+                      </div>
+                      <p className="mt-3 text-sm opacity-80">{open[r.id].explanation}</p>
+                    </td>
+                  </tr>
+                )}
+              </>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

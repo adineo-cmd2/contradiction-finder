@@ -50,29 +50,33 @@ export default function DocumentNetwork() {
 
   return (
     <div>
-      <div className="flex gap-2">
-        <input className="border border-slate-300 px-2 py-1" value={corpus} onChange={(e) => setCorpus(e.target.value)} placeholder="Corpus id" />
-        <button className="border border-slate-300 px-3 py-1" onClick={load}>Load</button>
+      <div className="case-panel" style={{ marginTop: 0 }}>
+        <div className="flex flex-wrap gap-2">
+          <input className="input flex-1" value={corpus} onChange={(e) => setCorpus(e.target.value)} placeholder="Corpus id" />
+          <button className="btn btn-accent" onClick={load}>Load</button>
+        </div>
       </div>
-      {!nodes.length && <p className="mt-2 text-sm opacity-70">Enter a corpus id and load.</p>}
+      {!nodes.length && <p className="table-note">Enter a corpus id and load.</p>}
       {nodes.length > 0 && (
-        <svg width={W} height={H} className="mt-2 border border-slate-200">
-          {edges.map((e, i) => {
-            const a = pos.get(e.a);
-            const b = pos.get(e.b);
-            if (!a || !b) return null;
-            return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#b45309" strokeWidth={Math.min(1 + e.count, 6)} opacity={0.6} />;
-          })}
-          {nodes.map((n) => {
-            const p = pos.get(n.id)!;
-            return (
-              <g key={n.id} className="cursor-pointer" onClick={() => { window.location.href = `${BASE}/contradictions?corpus=${corpus}&doc=${n.id}`; }}>
-                <circle cx={p.x} cy={p.y} r={10 + Math.min(n.count, 8)} fill="#1e293b" />
-                <text x={p.x} y={p.y - 16} textAnchor="middle" fontSize={11} fill="#1e293b">{n.label} ({n.count})</text>
-              </g>
-            );
-          })}
-        </svg>
+        <div className="network-frame">
+          <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} className="network-svg" role="img" aria-label="Document contradiction network">
+            {edges.map((e, i) => {
+              const a = pos.get(e.a);
+              const b = pos.get(e.b);
+              if (!a || !b) return null;
+              return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} stroke="#b3261e" strokeWidth={Math.min(1 + e.count, 6)} opacity={0.6} />;
+            })}
+            {nodes.map((n) => {
+              const p = pos.get(n.id)!;
+              return (
+                <g key={n.id} className="cursor-pointer" onClick={() => { window.location.href = `${BASE}/contradictions?corpus=${corpus}&doc=${n.id}`; }}>
+                  <circle cx={p.x} cy={p.y} r={10 + Math.min(n.count, 8)} fill="#2f4858" />
+                  <text x={p.x} y={p.y - 16} textAnchor="middle" fontSize={11} fill="#181818">{n.label} ({n.count})</text>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
       )}
     </div>
   );
